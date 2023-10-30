@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+    <title>Drum Kit</title>
+</head>
+<body>
+    <h2>Drum Kit</h2>
+    <div class="container">
+    <!-- <img src="./background-img1.jpg" alt="" > -->
+
+        <div data-key="65" class="button-box">
+            <p>A</p>
+            <p class="name">Clap</p>
+        </div>
+        <div data-key="83" class="button-box">
+            <p>S</p>
+            <p class="name">Hit hat</p>
+        </div>
+        <div data-key="68" class="button-box">
+            <p>D</p>
+            <p class="name">Kick</p>
+        </div>
+        <div data-key="70" class="button-box">
+            <p>F</p>
+            <p class="name">Boom</p>
+        </div>
+        <div data-key="71" class="button-box">
+            <p>G</p>
+            <p class="name">Open Hat</p>
+        </div>
+        <div data-key="72" class="button-box">
+            <p>H</p>
+            <p class="name">Ride</p>
+        </div>
+        <div data-key="74" class="button-box">
+            <p>J</p>
+            <p class="name">Snare</p>
+        </div>
+        <div data-key="75" class="button-box">
+            <p>K</p>
+            <p class="name">Tom</p>
+        </div>
+    </div>
+    <audio data-key="65" src="sounds/clap.mp3"></audio>
+    <audio data-key="83" src="sounds/hit hat.mp3"></audio>
+    <audio data-key="68" src="sounds/drum kick.mp3"></audio>
+    <audio data-key="70" src="sounds/boom.mp3"></audio>
+    <audio data-key="71" src="sounds/echoed-hi-hats-89491.mp3"></audio>
+    <audio data-key="72" src="sounds/ride.mp3"></audio>
+    <audio data-key="74" src="sounds/snare.mp3"></audio>
+    <audio data-key="75" src="sounds/tom.mp3"></audio> 
+
+    <script>
+        window.addEventListener('keydown',function(e){
+            var audio=document.querySelector(`audio[data-key="${e.keyCode}"]`)
+            if(!audio) return;
+            audio.currentTime=0;
+            audio.play();
+            var audioButton=document.querySelector(`.button-box[data-key="${e.keyCode}"]`);
+            audioButton.classList.add("playing");
+        });
+        function removeTransition(e){
+            if(e.propertyName !== "transform") return;
+            this.classList.remove("playing");
+            
+        }
+        var audioButton=document.querySelectorAll(".button-box");
+        audioButton.forEach(key => key.addEventListener('transitionend',removeTransition))
+
+    </script>
+</body>
+</html>
